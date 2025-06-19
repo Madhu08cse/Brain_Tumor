@@ -1,0 +1,6 @@
+﻿tensorflow
+numpy
+matplotlib
+reportlab
+Pillow
+streamlit
