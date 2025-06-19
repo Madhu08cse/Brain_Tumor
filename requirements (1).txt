@@ -1,6 +1,5 @@
-﻿tensorflow
-numpy
-matplotlib
-reportlab
-Pillow
 streamlit
+tensorflow
+Pillow
+reportlab
+gdown
