@@ -2,4 +2,5 @@ streamlit
 tensorflow
 Pillow
 reportlab
-gdown
+gdown         
+
