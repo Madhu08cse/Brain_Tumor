@@ -1,7 +1,12 @@
+# ✅ STEP 1: Install required packages
+
+
+# ✅ STEP 2: Python code
 import streamlit as st
 import numpy as np
 import os
-import gdown
+import requests
+from pathlib import Path
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from PIL import Image
@@ -11,38 +16,32 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 import datetime
-import requests
-import pandas as pd
 
-
-MODEL_URL = "https://github.com/Madhu08cse/Brain_Tumor/releases/download/v1.0/BrainTumor.1.h5"
-MODEL_PATH = "BrainTumor.h5"
-from pathlib import Path
-
+# ✅ STEP 3: Model download
 MODEL_URL = "https://github.com/Madhu08cse/Brain_Tumor/releases/download/v1.0/BrainTumor.1.h5"
 MODEL_PATH = "BrainTumor.h5"
 
 def download_model(url, path):
     model_file = Path(path)
     if model_file.exists():
-        print(f"Model already exists at {path}. Skipping download.")
+        print(f"✅ Model already exists at {path}")
         return
-
-    print(f"Downloading model from {url} ...")
+    print("⬇️ Downloading model...")
     r = requests.get(url, stream=True)
     if r.status_code == 200:
         with open(path, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
-        print("Download complete.")
+        print("✅ Download complete.")
     else:
-        raise Exception(f"Failed to download file: Status code {r.status_code}")
+        raise Exception(f"❌ Failed to download model: HTTP {r.status_code}")
 
 download_model(MODEL_URL, MODEL_PATH)
 
+# ✅ STEP 4: Load the model
+model = load_model(MODEL_PATH)
 
-st.success("✅ Model Loaded")
-
+# ✅ STEP 5: Streamlit UI
 st.title("🧠 Brain Tumor Detection - Patient MRI Form")
 
 with st.form("tumor_form"):
@@ -55,16 +54,16 @@ if submitted and uploaded_file:
     img = Image.open(uploaded_file).convert("RGB")
     st.image(img, caption='Uploaded Image', use_column_width=True)
 
-    # Preprocessing
+    # ✅ Preprocess image
     img_resized = img.resize((224, 224))
     img_array = image.img_to_array(img_resized)
     img_array = np.expand_dims(img_array, axis=0) / 255.0
 
-    # Predict
+    # ✅ Make prediction
     prediction = model.predict(img_array)[0][0]
     has_tumor = prediction >= 0.5
 
-    # Diagnosis Result
+    # ✅ Result text
     if has_tumor:
         result_text = "🚨 Tumor Detected"
         advice = (
@@ -82,7 +81,7 @@ if submitted and uploaded_file:
         )
         st.success(result_text)
 
-    # PDF Report
+    # ✅ Generate report
     img_path = "mri_image.jpg"
     img.save(img_path)
 
@@ -108,10 +107,10 @@ if submitted and uploaded_file:
 
     st.success("📄 Report generated!")
 
-    # Email PDF
+    # ✅ Email the report
     if email.strip():
         sender_email = "p.thangaabirami@gmail.com"
-        sender_password = "kbqj cubq nfzl aftg"
+        sender_password = "kbqj cubq nfzl aftg"  # NOTE: Use App Password for Gmail, never real password in public code!
         receiver_email = email.strip()
 
         message = EmailMessage()
