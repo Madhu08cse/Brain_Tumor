@@ -1,10 +1,5 @@
 streamlit
-numpy
+tensorflow==2.13.0
 gdown
-tensorflow
 Pillow
-smtplib  
-email    
 reportlab
-requests
-pandas
