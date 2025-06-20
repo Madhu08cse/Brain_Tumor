@@ -3,4 +3,5 @@ gdown
 tensorflow
 Pillow
 reportlab
-
+requests
+pandas
