@@ -1,5 +1,6 @@
 streamlit
+numpy
+requests
 tensorflow
-gdown
-Pillow
+pillow
 reportlab
