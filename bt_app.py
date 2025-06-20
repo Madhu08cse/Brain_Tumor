@@ -33,6 +33,10 @@ import datetime
 # ✅ STEP 3: Model download
 MODEL_URL = "https://github.com/Madhu08cse/Brain_Tumor/releases/download/v1.1/BrainTumor.h5"
 MODEL_PATH = "BrainTumor.h5"
+from pathlib import Path
+
+MODEL_URL = "https://github.com/Madhu08cse/Brain_Tumor/releases/download/v1.1/BrainTumor.h5"
+MODEL_PATH = "BrainTumor.h5"
 
 def download_model(url, path):
     model_file = Path(path)
