@@ -1,7 +1,10 @@
 streamlit
+numpy
 gdown
 tensorflow
-pillow
+Pillow
+smtplib  
+email    
 reportlab
 requests
 pandas
